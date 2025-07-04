@@ -43,6 +43,7 @@ def slack_events():
         print(f"📩 Event received: {event}")
 
         if event.get("type") == "message" and not event.get("subtype") and not event.get("bot_id"):
+            print(f"Raw Slack message: {text}", flush=True)
             text = event.get("text", "").strip().lower()
             thread_ts = event.get("thread_ts") or event.get("ts")
             channel = event.get("channel")

@@ -8,6 +8,7 @@ import threading
 import json
 import tempfile
 import os
+import sys
 
 import random
 from slack_sdk import WebClient
@@ -302,10 +303,10 @@ def post_to_linkedin(post_text, asset_urn=None):
 
 def build_post_pipeline(topic, access_token, author_urn):
     try:
-        print("Entered build_post_pipeline")
-        print(f"Topic: {topic}")
-        print(f"LinkedIn Token Present: {bool(access_token)}")
-        print(f"Author URN: {author_urn}")
+        print("Entered build_post_pipeline", flush=True)
+        print(f"Topic: {topic}", flush=True)
+        print(f"LinkedIn Token Present: {bool(access_token)}", flush=True)
+        print(f"Author URN: {author_urn}", flush=True)
         articles = search_articles_serper(topic)
         articles = articles[:MAX_ARTICLES] if SAFE_MODE else articles
 
