@@ -300,8 +300,12 @@ def post_to_linkedin(post_text, asset_urn=None):
     else:
         print("❌ Error posting:", resp.status_code, resp.text)
 
-try:
-    def build_post_pipeline(topic, access_token, author_urn):
+def build_post_pipeline(topic, access_token, author_urn):
+    try:
+        print("Entered build_post_pipeline")
+        print(f"Topic: {topic})
+	print(f"LinkedIn Token Present: {bool(access_token)}")
+	print(f"Author URN: {author_urn}")
         articles = search_articles_serper(topic)
         articles = articles[:MAX_ARTICLES] if SAFE_MODE else articles
 
@@ -323,6 +327,7 @@ try:
         asset_urn = upload_image_to_linkedin(image_url, access_token, author_urn) if image_url else None
 
         return post_text, asset_urn
-except Exception as e:
-    print(f"Error in build_post_pipeline: {e}")
-    raise
+    
+    except Exception as e:
+	print(f"Error in build_post_pipeline: {e}")
+        raise
