@@ -40,8 +40,8 @@ SERPER_API_KEY = os.environ.get("SERPER_API_KEY")
 # Your Unsplash API Access Key
 UNSPLASH_ACCESS_KEY = "Hri2ni9ACX3XWw26Q72WLcWJx7T3R9q3D0v2mfMiCcY"  # <-- GET THIS from https://unsplash.com/developers
 
-access_token = os.environ.get("LINKEDIN_ACCESS_TOKEN")
-author_urn = os.environ.get("LINKEDIN_AUTHOR_URN")
+LINKEDIN_ACCESS_TOKEN = os.environ.get("LINKEDIN_ACCESS_TOKEN")
+LINKEDIN_AUTHOR_URN = os.environ.get("LINKEDIN_AUTHOR_URN")
 
 # SAFE MODE SETTINGS
 SAFE_MODE = True
