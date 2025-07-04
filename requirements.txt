@@ -3,8 +3,3 @@ slack_sdk
 requests
 openai
 APScheduler
-threading
-json
-tempfile
-render_template_string
-request
