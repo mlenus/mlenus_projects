@@ -29,7 +29,7 @@ FALLBACK_TOPICS = [
 # Configuration without Slack starts HERE:
 
 client = openai.OpenAI(
-    OPENROUTER_API_KEY = os.environ.get("OPENROUTER_API_KEY"),
+    api_key = os.environ.get("OPENROUTER_API_KEY"),
     base_url="https://openrouter.ai/api/v1"
 )
 
