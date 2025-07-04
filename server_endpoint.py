@@ -99,5 +99,5 @@ def slack_events():
 
 if __name__ == "__main__":
     print("🚀 Slack event listener running on port 3000...")
-    app.run(port=3000)
+    app.run(host="0.0.0.0", port=3000)
 
