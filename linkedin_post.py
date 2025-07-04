@@ -304,8 +304,8 @@ def build_post_pipeline(topic, access_token, author_urn):
     try:
         print("Entered build_post_pipeline")
         print(f"Topic: {topic}")
-	print(f"LinkedIn Token Present: {bool(access_token)}")
-	print(f"Author URN: {author_urn}")
+        print(f"LinkedIn Token Present: {bool(access_token)}")
+        print(f"Author URN: {author_urn}")
         articles = search_articles_serper(topic)
         articles = articles[:MAX_ARTICLES] if SAFE_MODE else articles
 

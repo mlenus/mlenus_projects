@@ -3,7 +3,6 @@ from slack_sdk import WebClient
 from apscheduler.schedulers.background import BackgroundScheduler
 import atexit
 import os
-
 from linkedin_post import build_post_pipeline, post_to_linkedin
 
 # 🔐 Configuration (ideally loaded from environment variables)
