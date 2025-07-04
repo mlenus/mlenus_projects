@@ -300,25 +300,29 @@ def post_to_linkedin(post_text, asset_urn=None):
     else:
         print("❌ Error posting:", resp.status_code, resp.text)
 
-def build_post_pipeline(topic, access_token, author_urn):
-    articles = search_articles_serper(topic)
-    articles = articles[:MAX_ARTICLES] if SAFE_MODE else articles
+try:
+    def build_post_pipeline(topic, access_token, author_urn):
+        articles = search_articles_serper(topic)
+        articles = articles[:MAX_ARTICLES] if SAFE_MODE else articles
 
-    snippet_block = ""
-    title_link_map = {}
+        snippet_block = ""
+        title_link_map = {}
 
-    for article in articles:
-        snippet = article["snippet"][:MAX_SNIPPET_LENGTH]
-        snippet_block += f"Title: {article['title']}\nSnippet: {snippet}\n\n"
-        title_link_map[article['title']] = article['link']
-        time.sleep(0.5)
+        for article in articles:
+            snippet = article["snippet"][:MAX_SNIPPET_LENGTH]
+            snippet_block += f"Title: {article['title']}\nSnippet: {snippet}\n\n"
+            title_link_map[article['title']] = article['link']
+            time.sleep(0.5)
 
-    title_links_text = "\n".join([f"[{title}]({link})" for title, link in title_link_map.items()])
-    opinion = select_relevant_opinion(snippet_block, OPINIONS)
-    points = summarize_with_opinion(snippet_block, opinion)
-    post_text = compose_linkedin_post(points, opinion, title_links_text)
-    query = build_query_from_opinion(opinion)
-    image_url = search_unsplash_image(query)
-    asset_urn = upload_image_to_linkedin(image_url, access_token, author_urn) if image_url else None
+        title_links_text = "\n".join([f"[{title}]({link})" for title, link in title_link_map.items()])
+        opinion = select_relevant_opinion(snippet_block, OPINIONS)
+        points = summarize_with_opinion(snippet_block, opinion)
+        post_text = compose_linkedin_post(points, opinion, title_links_text)
+        query = build_query_from_opinion(opinion)
+        image_url = search_unsplash_image(query)
+        asset_urn = upload_image_to_linkedin(image_url, access_token, author_urn) if image_url else None
 
-    return post_text, asset_urn
+        return post_text, asset_urn
+except Exception as e:
+    print(f"Error in build_post_pipeline: {e}")
+    raise
