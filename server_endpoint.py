@@ -8,9 +8,9 @@ from linkedin_post import build_post_pipeline, post_to_linkedin
 
 # 🔐 Configuration (ideally loaded from environment variables)
 SLACK_BOT_TOKEN = os.environ.get("SLACK_BOT_TOKEN")
-SLACK_CHANNEL_ID = "C0931F5TQJ1"
-LINKEDIN_ACCESS_TOKEN = "AQVG0WC2Im7dYgtBct6jGarGlTUYgR8ErVh1zm5lBn4qmoAkUk9qMf8rGyoSxKjUSlAYsREpfUzmBKZKA2DkbLeblCuEgk1aWn-eVUuYhKnYblgztVHKF9XByJoE4zMyvuaRbI0lMfj5_SVdxSemXB_HIyNA0Htb0-qRo8jNhFke8Ulzww2KKx4Yqa9qgLamRE2YrIDfZUveHcMtWZioh4mJ3SN4iLfIZyguu3pZ0QfdaxIMI-0MI9mTQWS-pftsA64iF057SoOVYBmuj2_L27xtDy4chvKufZBVQAFQ4Ur6u_TAhaP5db3GljeseR84MNomw8QXX-_-HP55Ylc6Fj1cDPV7jg"
-AUTHOR_URN = "urn:li:person:BFLvB2rkcQ"
+SLACK_CHANNEL_ID = os.environ.get("SLACK_CHANNEL_ID")
+LINKEDIN_ACCESS_TOKEN = os.environ.get("LINKEDIN_ACCESS_TOKEN")
+LINKEDIN_AUTHOR_URN = os.environ.get("LINKEDIN_AUTHOR_URN")
 
 app = Flask(__name__)
 slack_client = WebClient(token=SLACK_BOT_TOKEN)

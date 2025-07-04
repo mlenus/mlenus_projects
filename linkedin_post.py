@@ -14,7 +14,7 @@ from slack_sdk.errors import SlackApiError
 
 # Slack configuration
 SLACK_BOT_TOKEN = os.environ.get("SLACK_BOT_TOKEN")
-SLACK_CHANNEL_ID = "C0931F5TQJ1"
+SLACK_CHANNEL_ID = os.environ.get("SLACK_CHANNEL_ID")
 slack_client = WebClient(token=SLACK_BOT_TOKEN)
 
 FALLBACK_TOPICS = [
@@ -28,19 +28,19 @@ FALLBACK_TOPICS = [
 # Configuration without Slack starts HERE:
 
 client = openai.OpenAI(
-    api_key="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",  # <-- your OpenRouter API key
+    OPENROUTER_API_KEY = os.environ.get("OPENROUTER_API_KEY"),
     base_url="https://openrouter.ai/api/v1"
 )
 
 MODEL_NAME = "mistralai/mixtral-8x7b-instruct"
 
-SERPER_API_KEY = "ac62965988d9cc1bf05ce1c9b9fd301cd8b307ba"
+SERPER_API_KEY = os.environ.get("SERPER_API_KEY")
 
 # Your Unsplash API Access Key
 UNSPLASH_ACCESS_KEY = "Hri2ni9ACX3XWw26Q72WLcWJx7T3R9q3D0v2mfMiCcY"  # <-- GET THIS from https://unsplash.com/developers
 
-access_token = "AQVG0WC2Im7dYgtBct6jGarGlTUYgR8ErVh1zm5lBn4qmoAkUk9qMf8rGyoSxKjUSlAYsREpfUzmBKZKA2DkbLeblCuEgk1aWn-eVUuYhKnYblgztVHKF9XByJoE4zMyvuaRbI0lMfj5_SVdxSemXB_HIyNA0Htb0-qRo8jNhFke8Ulzww2KKx4Yqa9qgLamRE2YrIDfZUveHcMtWZioh4mJ3SN4iLfIZyguu3pZ0QfdaxIMI-0MI9mTQWS-pftsA64iF057SoOVYBmuj2_L27xtDy4chvKufZBVQAFQ4Ur6u_TAhaP5db3GljeseR84MNomw8QXX-_-HP55Ylc6Fj1cDPV7jg"
-author_urn = "urn:li:person:BFLvB2rkcQ"
+access_token = os.environ.get("LINKEDIN_ACCESS_TOKEN")
+author_urn = os.environ.get("LINKEDIN_AUTHOR_URN")
 
 # SAFE MODE SETTINGS
 SAFE_MODE = True
