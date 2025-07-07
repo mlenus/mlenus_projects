@@ -56,7 +56,7 @@ def slack_events():
                 print(f"✅ Captured topic: {topic}")
 
                 try:
-                    post_text, asset_urn = build_post_pipeline(topic, LINKEDIN_ACCESS_TOKEN, AUTHOR_URN)
+                    post_text, asset_urn = build_post_pipeline(topic, LINKEDIN_ACCESS_TOKEN, LINKEDIN_AUTHOR_URN)
                     PENDING_POSTS[thread_ts] = (post_text, asset_urn)
 
                     slack_client.chat_postMessage(
