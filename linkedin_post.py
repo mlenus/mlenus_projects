@@ -225,15 +225,15 @@ def search_unsplash_image(query):
     else:
         return None
 
-def register_image_upload(access_token, author_urn):
+def register_image_upload(LINKEDIN_ACCESS_TOKEN, LINKEDIN_AUTHOR_URN):
     headers = {
-        "Authorization": f"Bearer {access_token}",
+        "Authorization": f"Bearer {LINKEDIN_ACCESS_TOKEN}",
         "Content-Type": "application/json",
         "X-Restli-Protocol-Version": "2.0.0"
     }
     data = {
         "registerUploadRequest": {
-            "owner": author_urn,
+            "owner": LINKEDIN_AUTHOR_URN,
             "recipes": ["urn:li:digitalmediaRecipe:feedshare-image"],
             "serviceRelationships": [
                 {
@@ -257,24 +257,24 @@ def upload_image(upload_url, image_path):
         resp = requests.put(upload_url, headers=headers, data=img_file)
         resp.raise_for_status()
 
-def upload_image_to_linkedin(image_url, access_token, author_urn):
+def upload_image_to_linkedin(image_url, LINKEDIN_ACCESS_TOKEN, LINKEDIN_AUTHOR_URN):
     img_resp = requests.get(image_url)
     img_resp.raise_for_status()
     temp_file = tempfile.NamedTemporaryFile(delete=False, suffix=".jpg")
     temp_file.write(img_resp.content)
     temp_file.close()
-    upload_url, asset_urn = register_image_upload(access_token, author_urn)
+    upload_url, asset_urn = register_image_upload(LINKEDIN_ACCESS_TOKEN, LINKEDIN_AUTHOR_URN)
     upload_image(upload_url, temp_file.name)
     return asset_urn
 
 def post_to_linkedin(post_text, asset_urn=None):
     headers = {
-        "Authorization": f"Bearer {access_token}",
+        "Authorization": f"Bearer {LINKEDIN_ACCESS_TOKEN}",
         "X-Restli-Protocol-Version": "2.0.0",
         "Content-Type": "application/json"
     }
     post_data = {
-        "author": author_urn,
+        "author": LINKEDIN_AUTHOR_URN,
         "lifecycleState": "PUBLISHED",
         "specificContent": {
             "com.linkedin.ugc.ShareContent": {
@@ -301,13 +301,13 @@ def post_to_linkedin(post_text, asset_urn=None):
     else:
         print("❌ Error posting:", resp.status_code, resp.text)
 
-def build_post_pipeline(topic, access_token, author_urn):
+def build_post_pipeline(topic, LINKEDIN_ACCESS_TOKEN, LINKEDIN_AUTHOR_URN):
     try:
         print("Entered build_post_pipeline", flush=True)
         print(f"Topic: {topic}", flush=True)
-        print(f"LinkedIn Token Present: {bool(access_token)}", flush=True)
+        print(f"LinkedIn Token Present: {bool(LINKEDIN_ACCESS_TOKEN)}", flush=True)
         print(f"🔑 OpenRouter key present: {bool(os.environ.get('OPENROUTER_API_KEY'))}", flush=True)
-        print(f"Author URN: {author_urn}", flush=True)
+        print(f"Author URN: {LINKEDIN_AUTHOR_URN}", flush=True)
         articles = search_articles_serper(topic)
         articles = articles[:MAX_ARTICLES] if SAFE_MODE else articles
 
@@ -326,7 +326,7 @@ def build_post_pipeline(topic, access_token, author_urn):
         post_text = compose_linkedin_post(points, opinion, title_links_text)
         query = build_query_from_opinion(opinion)
         image_url = search_unsplash_image(query)
-        asset_urn = upload_image_to_linkedin(image_url, access_token, author_urn) if image_url else None
+        asset_urn = upload_image_to_linkedin(image_url, LINKEDIN_ACCESS_TOKEN, LINKEDIN_AUTHOR_URN) if image_url else None
 
         return post_text, asset_urn
     
