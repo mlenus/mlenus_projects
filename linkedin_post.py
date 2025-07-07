@@ -306,6 +306,7 @@ def build_post_pipeline(topic, access_token, author_urn):
         print("Entered build_post_pipeline", flush=True)
         print(f"Topic: {topic}", flush=True)
         print(f"LinkedIn Token Present: {bool(access_token)}", flush=True)
+        print(f"🔑 OpenRouter key present: {bool(os.environ.get('OPENROUTER_API_KEY'))}", flush=True)
         print(f"Author URN: {author_urn}", flush=True)
         articles = search_articles_serper(topic)
         articles = articles[:MAX_ARTICLES] if SAFE_MODE else articles
