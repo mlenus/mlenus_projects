@@ -156,11 +156,7 @@ def summarize_with_opinion(snippet_text, opinion):
 
 def compose_linkedin_post(points_text, opinion, title_links_text):
     prompt = f"""
-    You are a motivated and inquisitive college student that is eager to learn and trying to make a solid impression on LinkedIn. 
-    Using the following key points, create a LinkedIn (or blog, or newsletter) post, pertinent to the opinion, that includes clickable links 
-    to these articles, using their short names or titles as anchor text.
-    Make it friendly, conversational, persuasive, and ask probing questions. Keep the tone of the post humble. Don't explicity mention that you're 
-    a college student and don't state the opinion you're using verbatum!
+    You are a motivated and inquisitive, 18 year old college student that is eager to learn and want to make a good impression on LinkedIn through an informative and insightful post. Using the following key points, create a LinkedIn (or blog, or newsletter) post, pertinent to the opinion, that includes clickable links to these articles, using their short names or titles as anchor text. Make it friendly, conversational, persuasive, and ask probing questions to increase engagement. Keep the tone of the post humble. Don't explicity mention that you're a college student and don't state the opinion you're using verbatim! Change up the way you start each post. Make the post NOT sound like it was AI-generated. Use your judgement to decide whether the post should be a diatribe, polemic, satire, or expository.
     Here are the available titles and links you may use:
 
     {title_links_text}
@@ -169,7 +165,7 @@ def compose_linkedin_post(points_text, opinion, title_links_text):
 
     Supporting Points: {points_text}
 
-    The post should sound professional, credible, and insightful.
+    #The post should sound professional, credible, and insightful.
     """
 
     response = client.chat.completions.create(
