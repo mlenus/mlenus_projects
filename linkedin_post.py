@@ -322,6 +322,7 @@ def build_post_pipeline(topic, LINKEDIN_ACCESS_TOKEN, LINKEDIN_AUTHOR_URN):
         image_url = search_unsplash_image(query)
         asset_urn = upload_image_to_linkedin(image_url, LINKEDIN_ACCESS_TOKEN, LINKEDIN_AUTHOR_URN) if image_url else None
 
+        print(opinion + ", " + image_url)
         return post_text, asset_urn
     
     except Exception as e:
