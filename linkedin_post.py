@@ -319,11 +319,11 @@ def build_post_pipeline(topic, LINKEDIN_ACCESS_TOKEN, LINKEDIN_AUTHOR_URN):
         points = summarize_with_opinion(snippet_block, opinion)
         post_text = compose_linkedin_post(points, opinion, title_links_text)
         query = build_query_from_opinion(opinion)
-        image_url = search_unsplash_image(query)
-        #image_url = search_unsplash_image(title_links_text)
+        #image_url = search_unsplash_image(query)
+        image_url = search_unsplash_image(opinion)
         asset_urn = upload_image_to_linkedin(image_url, LINKEDIN_ACCESS_TOKEN, LINKEDIN_AUTHOR_URN) if image_url else None
 
-        print(opinion + ", " + title_links_text + ", " + image_url)
+        print(opinion + ", " + image_url)
         return post_text, asset_urn
     
     except Exception as e:
