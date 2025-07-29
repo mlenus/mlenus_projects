@@ -19,15 +19,13 @@ SLACK_BOT_TOKEN = os.environ.get("SLACK_BOT_TOKEN")
 SLACK_CHANNEL_ID = os.environ.get("SLACK_CHANNEL_ID")
 slack_client = WebClient(token=SLACK_BOT_TOKEN)
 
-FALLBACK_TOPICS = [
-    "AI in education",
-    "Recent trends in climate tech",
-    "The future of ethical AI",
-    "How machine learning is changing healthcare",
-    "What makes a strong tech resume"
-]
-
-# Configuration without Slack starts HERE:
+# FALLBACK_TOPICS = [
+#     "AI in education",
+#     "Recent trends in climate tech",
+#     "The future of ethical AI",
+#     "How machine learning is changing healthcare",
+#     "What makes a strong tech resume"
+# ]
 
 client = openai.OpenAI(
     api_key = os.environ.get("OPENROUTER_API_KEY"),
@@ -39,7 +37,7 @@ MODEL_NAME = "mistralai/mixtral-8x7b-instruct"
 SERPER_API_KEY = os.environ.get("SERPER_API_KEY")
 
 # Your Unsplash API Access Key
-UNSPLASH_ACCESS_KEY = "Hri2ni9ACX3XWw26Q72WLcWJx7T3R9q3D0v2mfMiCcY"  # <-- GET THIS from https://unsplash.com/developers
+UNSPLASH_ACCESS_KEY = os.environ.get("UNSPLASH_ACCESS_KEY")
 
 LINKEDIN_ACCESS_TOKEN = os.environ.get("LINKEDIN_ACCESS_TOKEN")
 LINKEDIN_AUTHOR_URN = os.environ.get("LINKEDIN_AUTHOR_URN")
