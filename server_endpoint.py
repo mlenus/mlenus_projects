@@ -74,15 +74,18 @@ def slack_events():
 
             # Approval message (yes/no)
             elif thread_ts in PENDING_POSTS:
-                post_text, asset_urn = PENDING_POSTS.pop(thread_ts)
+                original_post, asset_urn = PENDING_POSTS[thread_ts]
+
                 if text == "yes":
                     try:
-                        post_to_linkedin(post_text, asset_urn)
+                        post_to_linkedin(original_post, asset_urn)
                         slack_client.chat_postMessage(
                             channel=channel,
                             thread_ts=thread_ts,
                             text="✅ Your post has been published to LinkedIn!"
                         )
+                        # Optionally, clean up after posting
+                        PENDING_POSTS.pop(thread_ts)
                     except Exception as e:
                         print(f"❌ Error posting to LinkedIn: {e}")
                         slack_client.chat_postMessage(
@@ -90,11 +93,22 @@ def slack_events():
                             thread_ts=thread_ts,
                             text="⚠️ Failed to publish the post to LinkedIn."
                         )
+
                 elif text == "no":
                     slack_client.chat_postMessage(
                         channel=channel,
                         thread_ts=thread_ts,
                         text="🛑 Got it. Your post was not published."
+                    )
+                    PENDING_POSTS.pop(thread_ts)
+
+                else:
+                    # Treat any other message in the thread as an edited post
+                    PENDING_POSTS[thread_ts] = (text, asset_urn)
+                    slack_client.chat_postMessage(
+                        channel=channel,
+                        thread_ts=thread_ts,
+                        text="✏️ Post updated! Reply with *yes* to publish or *no* to cancel."
                     )
 
     return "", 200
